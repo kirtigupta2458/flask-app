@@ -2,7 +2,7 @@ from flask import Flask,jsonify, request
 
 app = Flask(__name__)
 
-List = [
+contactList = [
     {
         'id': 1,
         'Name': u'Raju',
@@ -17,16 +17,12 @@ List = [
     }
 ]
 
-@app.route("/")
-def hello_world():
-    return "Hello World!"
 
 @app.route("/add-data", methods=["POST"])
 def add_task():
     if not request.json:
         return jsonify({
-            "status":"error",
-            "message": "Please provide the data!"
+            
         },400)
 
     contact = {
@@ -35,17 +31,16 @@ def add_task():
         'Contact': request.json.get('Contact', ""),
         'done': False
     }
-    List.append(contact)
+    #append to the contactList
     return jsonify({
-        "status":"success",
-        "message": "Contact added succesfully!"
+        
     })
     
 
 @app.route("/get-data")
 def get_task():
     return jsonify({
-        "data" : List
+        "data" : contactList
     }) 
 
 if (__name__ == "__main__"):
